@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{request.user}}'s Bookmarks</title>
+</head>
+<body>
+    <div class="header">
+        <span>Hello, {{request.user}}</span><br>
+        <a href="/logout/">Logout</a>
+    </div>
+    <div class="to-add">
+        <form method="POST" action=""> 
+            {% csrf_token %}
+            <p>
+                {{form.title}}
+                {{form.link}}
+            </p>
+            <input type="submit" name="Create Bookmark">
+        </form>
+    </div>
+    <div class="bookmarks">
+        <h2>Bookmarks</h2>
+        {% for bookmark in bookmarks %}
+            <p>
+                {% if bookmark.user == request.user %}
+                {% if bookmark.completed == False %}
+                    {{bookmark.title}}
+                    <a href={{bookmark.link}} target="_blank">Go to page</a>
+                    <a href="/done/{{bookmark.id}}/">Done</a>
+                    <a href="/delete/{{bookmark.id}}/">Delete</a>
+                {% endif %}
+                {% endif %}
+            </p>
+        {% endfor %}
+        <h2>Completed</h2>
+        {% for bookmark in bookmarks %}
+            <p>
+                {% if bookmark.user == request.user %}
+                {% if bookmark.completed == True %}
+                {{bookmark.title}}
+                <a href={{bookmark.link}} target="_blank">Go to page</a>
+                {% endif %}
+                {% endif %}
+            </p>
+        {% endfor %}
+        
+    </div>
+
+    <script>
+        document.getElementById("id_title").setAttribute("placeholder", "Bookmark Name");
+        document.getElementById("id_link").setAttribute("placeholder", "Link");
+    </script>
+</body>
+</html>

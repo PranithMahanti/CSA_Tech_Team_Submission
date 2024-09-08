@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            align-items: center;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            width: 100%;  
+        }
+
+        .form {
+            background-color: #15172b;
+            border-radius: 20px;
+            box-sizing: border-box;
+            width: 20%;
+            padding: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .intro-text {
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            font-size: xx-large;
+            color: aliceblue;
+            padding-bottom: 20px;
+        }
+
+        h4 {
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            font-size: small;
+            color: aliceblue;
+            padding-top: 20px;
+        }
+
+        h4 a {
+            color: rgb(0, 132, 255);
+        }
+
+        .input-container {
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input {
+            width: 94%;
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            border: none;
+            outline: none;
+            transition: 0.5s;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: medium;
+        }
+
+        input:before {
+            content: 'Enter your number';
+            position: absolute;
+            left: 5px;
+            top: 0;
+            color: #bbb;
+        }
+
+        label {
+            display: none;
+        }
+
+        .message {
+            display: block;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            color: rgb(255, 255, 255);
+            margin-top: 20px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .submit {
+            background-color: #08d;
+            border-radius: 12px;
+            border: 0;
+            box-sizing: border-box;
+            color: #eee;
+            cursor: pointer;
+            font-size: 18px;
+            height: 50px;
+            margin-top: 38px;
+            outline: 0;
+            text-align: center;
+            width: 100%;
+            }
+
+        .submit:active {
+        background-color: #000;
+        }
+
+    </style>
+</head>
+<body>
+    <form method="POST" class="form">
+        {% csrf_token %}
+        <div class="intro-text">
+            Login
+        </div>
+        <div class="input-container">
+            <input type="text" name="username" id="id_username">
+            <input type="password" name="password" id="id_password">
+        <button type="submit" class="submit">Submit</button>
+            {% for message in messages %}
+            <div class="message">
+                {{message}}  
+            </div>  
+            {% endfor %}
+        <h4>Don't have an account? <a href="/signup">Register here</a></h4>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById("id_username").setAttribute("placeholder", "Username");
+        document.getElementById("id_password").setAttribute("placeholder", "Password");
+    </script>
+
+</body>
+</html>

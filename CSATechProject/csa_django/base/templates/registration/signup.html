@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an account</title>
+    <style>
+        body {
+            align-items: center;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            width: 100%;  
+        }
+
+        .form {
+            background-color: #15172b;
+            border-radius: 20px;
+            box-sizing: border-box;
+            width: 20%;
+            padding: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .intro-text {
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            font-size: xx-large;
+            color: aliceblue;
+            padding-bottom: 20px;
+        }
+
+        .input-container {
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input {
+            width: 94%;
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            border: none;
+            outline: none;
+            transition: 0.5s;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: medium;
+        }
+
+        input:before {
+            content: 'Enter your number';
+            position: absolute;
+            left: 5px;
+            top: 0;
+            color: #bbb;
+        }
+
+        h4 {
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            font-size: small;
+            color: aliceblue;
+            padding-top: 20px;
+        }
+
+        h4 a {
+            color: rgb(0, 132, 255);
+        }
+
+        .submit {
+            background-color: #08d;
+            border-radius: 12px;
+            border: 0;
+            box-sizing: border-box;
+            color: #eee;
+            cursor: pointer;
+            font-size: 18px;
+            height: 50px;
+            margin-top: 38px;
+            outline: 0;
+            text-align: center;
+            width: 100%;
+            }
+
+        .submit:active {
+        background-color: #000;
+        }
+
+    </style>
+</head>
+<body>
+    <form method="POST" class="form">
+        {% csrf_token %}
+        <div class="intro-text">
+            Registration
+        </div>
+        <div class="input-container">
+            <div class="input" type="text" placeholder="Username">{{form.username}}</div>
+            <div class="input" type="text" placeholder=" ">{{form.first_name}}</div>
+            <div class="input" type="text" placeholder=" ">{{form.last_name}}</div>
+            <div class="input" type="text" placeholder=" ">{{form.email}}</div>
+            <div class="input" type="text" placeholder=" ">{{form.password1}}</div>
+            <div class="input" type="text" placeholder=" ">{{form.password2}}</div>
+        </div>
+        <button type="submit" class="submit">Submit</button>
+        {{form.errors}}
+        <h4>Already have an account? <a href="/login/">Login</a></h4>
+    </form>
+
+    <script>
+        document.getElementById("id_username").setAttribute("placeholder", "Username");
+        document.getElementById("id_first_name").setAttribute("placeholder", "First Name");
+        document.getElementById("id_last_name").setAttribute("placeholder", "Last Name");
+        document.getElementById("id_email").setAttribute("placeholder", "Email");
+        document.getElementById("id_password1").setAttribute("placeholder", "Password");
+        document.getElementById("id_password2").setAttribute("placeholder", "Re-enter Password");
+    </script>
+</body>
+</html>
