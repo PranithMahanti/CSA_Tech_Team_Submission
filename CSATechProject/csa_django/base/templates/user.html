@@ -4,13 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{request.user}}'s Bookmarks</title>
+
+    <style>
+        * {box-sizing: border-box;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif}
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #8dbcc2;
+            margin: 0px;
+            padding: 0px;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+        .header {
+            overflow: hidden;
+            background-color: #f1f1f1;
+            padding: 30px 20px;
+        }
+        .header span {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 23px;
+            line-height: 25px;
+            border-radius: 4px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+        }
+        .header-right {
+            float: right;
+            color: black;
+            border: 2px solid #06908F;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            transition: .3s;
+            padding: 10px 20px;
+        }
+        .header-right:hover{
+            color: aliceblue;
+            background-color: #06908F;
+        }
+        .to-add{
+            width: 40%;
+            align-items: center;
+            justify-content: center;
+            margin-left: 29%;
+            margin-top: 4%;
+        }
+        form{
+            width:100%;
+            align-items: center;
+            justify-content: center;
+        }
+        input{
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: none;
+            border-bottom: 2px solid white;
+            background-color: none;
+            align-items: center;
+            justify-content: center;
+            font-size: large;
+        }
+        .input:focus{
+            border: none;
+        }
+
+        .bookmarks{
+            width: 100%;
+            box-sizing: border-box;
+            border: none;
+            background-color: none;
+            padding-left: 29%;
+            padding-right: 31%;
+        }
+
+        .bookmarks h2{
+            color: aliceblue;
+            font-size: 45px;
+        }
+
+        .title{
+            color: aliceblue;
+            font-size: 45px;
+        }
+
+        .list{
+            width: 100%;
+            overflow: hidden;
+            background-color: aliceblue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: large;
+        }
+        .list span{
+            float: left;
+        }
+        .links{
+            float: right;
+            width: 100%;
+            padding: 10px;
+        }
+        .links a {
+            margin-left: 10px;
+        }
+        .links a:hover{
+            color: aliceblue;
+            background-color: #06908F;
+        }
+        .list a{
+            float: right;
+            color: black;
+            border: 2px solid #06908F;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            transition: .3s;
+            padding: 10px 20px;
+        }
+        .name {
+            margin-left: 25px;
+        }
+
+    </style>
+
 </head>
 <body>
     <div class="header">
-        <span>Hello, {{request.user}}</span><br>
-        <a href="/logout/">Logout</a>
+        <span>Hello, {{request.user}}</span>
+        <a href="/logout/" class="header-right">Logout</a>
     </div>
     <div class="to-add">
+        <span class="title">Add a new Bookmark</span>
         <form method="POST" action=""> 
             {% csrf_token %}
             <p>
@@ -23,27 +155,31 @@
     <div class="bookmarks">
         <h2>Bookmarks</h2>
         {% for bookmark in bookmarks %}
-            <p>
                 {% if bookmark.user == request.user %}
                 {% if bookmark.completed == False %}
-                    {{bookmark.title}}
-                    <a href={{bookmark.link}} target="_blank">Go to page</a>
-                    <a href="/done/{{bookmark.id}}/">Done</a>
-                    <a href="/delete/{{bookmark.id}}/">Delete</a>
+                <p class="list">
+                    <span class="name">{{bookmark.title}}</span>
+                    <span class="links">
+                        <a href={{bookmark.link}} target="_blank">Go to page</a>
+                        <a href="/done/{{bookmark.id}}/">Done</a>
+                        <a href="/delete/{{bookmark.id}}/">Delete</a>
+                    </span>
+                </p>
                 {% endif %}
                 {% endif %}
-            </p>
         {% endfor %}
         <h2>Completed</h2>
         {% for bookmark in bookmarks %}
-            <p>
                 {% if bookmark.user == request.user %}
                 {% if bookmark.completed == True %}
-                {{bookmark.title}}
-                <a href={{bookmark.link}} target="_blank">Go to page</a>
+                <p class="list">
+                    <span class="name">{{bookmark.title}}</span>
+                    <span class="links">
+                        <a href={{bookmark.link}} target="_blank" class="">Go to page</a>
+                    </span>
+                </p>
                 {% endif %}
                 {% endif %}
-            </p>
         {% endfor %}
         
     </div>
